@@ -29,8 +29,8 @@
 			}else{
 			var queryString=$("form[name=categoryInputForm]").serialize();
 			$.ajax({
-				type:'Get',
-				url:'/category/create',
+				type:'Post',
+				url:'/category',
 				data : queryString,
 				dataType : 'json',
 				success:function(data){
@@ -58,7 +58,6 @@
 			var name=inputTag.val();
 			var data=new Object();
 			data.name=name;
-		
 			if(name==''){
 				alert("카테고리 이름을 입력해주세요 :(");
 			}else{
@@ -83,7 +82,7 @@
 </head>
 <body>
 <center>
-	<form name="categoryInputForm">
+	<form name="categoryInputForm" method="post">
 		<input type="text" name="name" id="categoryInputName"/> <input id="createBtn" type="button"
 			value="카테고리 등록" />
 	</form>

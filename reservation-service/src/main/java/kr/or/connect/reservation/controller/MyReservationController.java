@@ -5,15 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/")
-public class MainController {
-//	@GetMapping
-//	public String index(){
-//		return "redirect:/category";
-//	}
+@RequestMapping("/myReservation")
+public class MyReservationController {
 	@GetMapping
-	public String mainPage(){
-		System.out.println("mainpage요청");
-		return "mainpage";
+	public String getMyReservationPage(){
+		System.out.println("myreservation요청");
+		return "myreservation";
 	}
 }

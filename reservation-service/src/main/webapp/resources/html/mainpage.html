@@ -6,6 +6,8 @@
     <meta name="description" content="네이버 예약, 네이버 예약이 연동된 곳 어디서나 바로 예약하고, 네이버 예약 홈(나의예약)에서 모두 관리할 수 있습니다.">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="/resources/js/mainpage.js"></script>
     <link href="/resources/css/style.css" rel="stylesheet">
 </head>
 
@@ -15,9 +17,9 @@
             <header class="header_tit">
                 <h1 class="logo">
                     <a href="#" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
-                    <a href="#" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
+                    <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                 </h1>
-                <a href="#" class="btn_my"> <span title="내 예약">MY</span> </a>
+                <a href="/myReservation" class="btn_my"> <span title="내 예약">MY</span> </a>
             </header>
         </div>
         <hr>
@@ -78,31 +80,7 @@
                     <li class="item" data-category="1">
                         <a class="anchor active"> <span>전체</span> </a>
                     </li>
-                    <li class="item" data-category="2">
-                        <a class="anchor"> <span>전시</span> </a>
-                    </li>
-                    <li class="item" data-category="3">
-                        <!-- [D] 활성화 된 anchor는 active 추가 -->
-                        <a class="anchor"> <span>뮤지컬</span> </a>
-                    </li>
-                    <li class="item" data-category="4">
-                        <a class="anchor"> <span>콘서트</span> </a>
-                    </li>
-                    <li class="item" data-category="5">
-                        <a class="anchor"> <span>클래식</span> </a>
-                    </li>
-                    <li class="item" data-category="6">
-                        <a class="anchor"> <span>연극</span> </a>
-                    </li>
-                    <li class="item" data-category="7">
-                        <a class="anchor"> <span>클래스</span> </a>
-                    </li>
-                    <li class="item" data-category="8">
-                        <a class="anchor"> <span>체험</span> </a>
-                    </li>
-                    <li class="item" data-category="9">
-                        <a class="anchor last"> <span>키즈</span> </a>
-                    </li>
+                    <!-- 카테고리 추가 될 부분 -->
                 </ul>
             </div>
             <div class="section_event_lst">

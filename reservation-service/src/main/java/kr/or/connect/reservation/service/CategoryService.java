@@ -7,8 +7,7 @@ import kr.or.connection.reservation.common.MyException;
 
 public interface CategoryService {
 	public int createCategory(Category category) throws MyException;
-	public int deleteCategory(int name);
+	public void deleteCategory(int name);
 	public int updateCategory(Category category) throws MyException;
 	public List<Category> selectAllCategory();
-	
 }
