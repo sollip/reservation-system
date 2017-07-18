@@ -26,8 +26,7 @@ public class CategoryDao {
 	private NamedParameterJdbcTemplate jdbc;
 	private SimpleJdbcInsert insertAction;
 	private RowMapper<Category> rowMapper= BeanPropertyRowMapper.newInstance(Category.class);
-	private List<RowMapper<Category>> rowMapperList=new ArrayList<>();
-
+	
 	public CategoryDao(DataSource dataSource){
 		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
 		this.insertAction=new SimpleJdbcInsert(dataSource)
@@ -36,7 +35,7 @@ public class CategoryDao {
 
 	//카테고리 등록
 	public int createCategory(Category category)throws MyException{
-		//카테고리 중복체크...필요할거같음...
+		//카테고리 중복체크...필요할거같음...================> 서비스로 빼기
 		if(selectByName(category.getName())==null){
 			SqlParameterSource params=new BeanPropertySqlParameterSource(category);
 			return insertAction.executeAndReturnKey(params).intValue();
@@ -65,16 +64,12 @@ public class CategoryDao {
 		}else{
 			throw new MyException();//or throw exception
 		}
-		
 	}
-
 
 	//카테고리 리스트 select
 	public List<Category> selectAllCategory() {
-		Map<String,Object>params = Collections.emptyMap();
-		return jdbc.query(CategorySqls.SELECT_ALL_CATEGORY,params,rowMapper);
+		return jdbc.query(CategorySqls.SELECT_ALL_CATEGORY, rowMapper);
 	}
-
 
 	//카테고리 삭제
 	public int deleteCategory(int id) {
@@ -82,5 +77,4 @@ public class CategoryDao {
 		Map<String,?> params=Collections.singletonMap("id", id);
 		return jdbc.update(CategorySqls.DELETE_CATEGORY,params);
 	}
-
 }

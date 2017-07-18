@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 
 <head>
@@ -94,15 +96,18 @@
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <ul class="lst_event_box">
                       <script id="productTemplate" type="text/x-handlebars-template">
+                        {{#productList}}
                         <li class="item">
                               <a href="#" class="item_book">
+
                                 <div class="item_preview"> <img alt="{{fileName}}" class="img_thumb" src="{{saveFileName}}">                                    <span class="img_border"></span> </div>
                                   <div class="event_txt">
-                                  <h4 class="event_txt_tit"> <span>{{title}}</span> <small class="sm">{{place}}</small> </h4>
+                                  <h4 class="event_txt_tit"> <span>{{name}}</span> <small class="sm">{{placeName}}</small> </h4>
                                   <p class="event_txt_dsc">{{description}}</p>
                                   </div>
                               </a>
                         </li>
+                        {{/productList}}
                       </script>
                     </ul>
                     <ul class="lst_event_box">

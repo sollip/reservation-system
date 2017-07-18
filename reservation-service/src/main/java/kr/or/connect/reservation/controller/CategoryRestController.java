@@ -20,20 +20,20 @@ import kr.or.connect.reservation.service.CategoryService;
 import kr.or.connection.reservation.common.MyException;
 
 @RestController
-@RequestMapping("/category")
-public class CategoryController {
+@RequestMapping("/categories")//restAPI사용할때 유알엘이 복수로 사용하면 좋다
+public class CategoryRestController {
 	@Autowired
 	private CategoryService categoryService;
-
-	//모든 카테고리 리스트 출력
-	@GetMapping
-	public ModelAndView selectAllCategory(Model model){
-		System.out.println("RestController selectAll");
-		List<Category> list=categoryService.selectAllCategory();
-		model.addAttribute("list", list);
-		ModelAndView mav=new ModelAndView("viewList");
-		return mav;
-	}	
+	
+//	//모든 카테고리 리스트 출력
+//	@GetMapping
+//	public ModelAndView selectAllCategory(Model model){
+//		System.out.println("RestController selectAll");
+//		List<Category> list=categoryService.selectAllCategory();
+//		model.addAttribute("list", list);
+//		ModelAndView mav=new ModelAndView("viewList");
+//		return mav;
+//	}	
 	
 	//mainPage의 카테고리 요청 
 	@GetMapping("/getCategoryList")

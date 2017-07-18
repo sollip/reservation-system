@@ -14,30 +14,29 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages={"kr.or.connect.reservation.controller"}) 
-public class ServletContextConfig extends WebMvcConfigurerAdapter{ 
-//	@Bean
-//	public ViewResolver viewResolver(){
-//		InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
-//		viewResolver.setOrder(2);
-//		viewResolver.setViewClass(JstlView.class);
-//		viewResolver.setPrefix("/WEB-INF/views/");
-//		viewResolver.setSuffix(".jsp");
-//		return viewResolver;
-//	}
-	
-	//다중 viewresolver 나중에 구현하기....................................
+public class ServletContextConfig extends WebMvcConfigurerAdapter{ //디스패쳐 서블릿의 설정
 	@Bean
-	public ViewResolver viewResolver2(){
+	public ViewResolver viewResolver(){
 		InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/resources/html/");
-		viewResolver.setSuffix(".html");
+		viewResolver.setPrefix("/resources/jsp/");
+		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
 	
+//	
+//	@Bean
+//	public ViewResolver viewResolver(){
+//		InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
+//		viewResolver.setViewClass(JstlView.class);
+//		viewResolver.setPrefix("/resources/html/");
+//		viewResolver.setSuffix(".html");
+//		return viewResolver;
+//	}
+	
 	@Override
 	   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	       registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");  //   webapp/resources 경로를 의미
+	       registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");  //  webapp/resources 경로를 의미
 	   }
 
 }

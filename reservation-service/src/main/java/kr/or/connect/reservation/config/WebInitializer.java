@@ -18,7 +18,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 //인터페이스를 상속받아서 쓰는거라 부모타입?으로 사용된다~(자동으로~)
 public class WebInitializer implements WebApplicationInitializer{
 	//web.xml에서 했던 설정을 여기서 해준다.
-	//웹 전체에 대한 설정
+	//웹 전체에 대한 설정 - 웹이 처음 동작할때 알려줘야하는 정보들
 	
 	private static final String CONFIG_LOCATION="kr.or.connect.reservation.config";
 	private static final String MAPPING_URL="/";

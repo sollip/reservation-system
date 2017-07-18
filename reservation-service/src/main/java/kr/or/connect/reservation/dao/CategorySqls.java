@@ -9,4 +9,7 @@ public class CategorySqls {
 			"select id, name from category where name=:name";
 	final static String UPDATE_CATEGORY =
 			"update category set name= :name where id= :id";
+	
+	//select사용할때 *를 사용하는 것 보다 컬럼명을 하나씩 명시적으로 써주는 것이 좋다.
+	
 }

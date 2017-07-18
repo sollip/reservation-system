@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan(basePackages={"kr.or.connect.reservation.dao","kr.or.connect.reservation.service"})
 @Import({DbConfig.class}) //DbConfig를 설정한다.
-public class RootApplicationContextConfig {
+public class RootApplicationContextConfig { //서비스단에 대한 정보들
 
 }

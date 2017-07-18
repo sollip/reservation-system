@@ -11,9 +11,9 @@ public class MainController {
 //	public String index(){
 //		return "redirect:/category";
 //	}
+	
 	@GetMapping
 	public String mainPage(){
-		System.out.println("mainpage요청");
 		return "mainpage";
 	}
 }
