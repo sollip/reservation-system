@@ -1,4 +1,7 @@
 $(function() {
+
+  $(“img”).lazyload();
+
   var $listMain = $('.visual_img');
 
   var size = $listMain.find('li.item').outerWidth();

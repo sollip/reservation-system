@@ -17,6 +17,7 @@
     <script src="/resources/js/handlebars-v4.0.10.js"></script>
     <script type="text/javascript" src="/resources/js/commonModule.js"></script>
     <script type="text/javascript" src="/resources/js/detailpage.js"></script>
+    <script type="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
 </head>
 <body>
     <div id="container">
