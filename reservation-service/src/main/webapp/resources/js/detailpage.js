@@ -83,14 +83,14 @@ $(function() {
   //6.터치 이벤트
   var obj;
   var gapX;
-  var startX={};
-  var endX={};
+  var startX = {};
+  var endX = {};
 
-  var touchStart = function ($list) {
+  var touchStart = function($list) {
     console.log("event startX: " + startX);
     obj = $list.offset();
   };
-  var touchMove = function (cnt, $list) {
+  var touchMove = function(cnt, $list) {
     gapX = endX - startX;
     console.log("gapX:" + gapX);
     if (gapX > 0) { //왼쪽->오른쪽 이전 이미지
@@ -99,21 +99,21 @@ $(function() {
       }
     }
     if (gapX <= 0) { //다음 이미지 왜 90을 안빼면 넘길떄 길이 90만큼 이전 이미지가 보이는지 찾아보기
-      $list.attr('style', 'left:' + (obj.left + (gapX)-90) + 'px');
+      $list.attr('style', 'left:' + (obj.left + (gapX) - 90) + 'px');
     }
   };
 
-  var touchEnd = function (size, cnt, len, $list) {
+  var touchEnd = function(size, cnt, len, $list) {
     if (Math.abs(gapX) > (size / 2)) { //슬라이드 넘어가기
       if (cnt === 1 && gapX > 0) {} else {
         if (gapX > 0) {
-          console.log("-->이전으로 넘어가기 cnt:"+cnt+"len:"+len+"size:"+size);
+          console.log("-->이전으로 넘어가기 cnt:" + cnt + "len:" + len + "size:" + size);
           cnt = nextPrevEvent.movePre(len, size, cnt, $list);
           //$imageCount.text(cnt);
         } else {
 
           cnt = nextPrevEvent.moveNxt(len, size, cnt, $list);
-          console.log("-->다음으로 넘어가기 cnt:"+cnt+"len:"+len);
+          console.log("-->다음으로 넘어가기 cnt:" + cnt + "len:" + len);
 
           //$imageCount.text(cnt);
         }
@@ -125,49 +125,7 @@ $(function() {
     return cnt;
   };
 
-  onEvent();
-  //
-  // $('.container_visual').on('touchstart', '.visual_img', function(event){
-  //     event.preventDefault();
-  //     startX = event.originalEvent.changedTouches[0].pageX;
-  //     touchStart($listMain);
-  // });
-  // $('.container_visual').on('touchmove', '.visual_img', function (event){
-  //   event.preventDefault();
-  //   endX = event.originalEvent.changedTouches[0].pageX;
-  //   touchMove(count,$listMain);
-  // });
-  // $('.container_visual').on('touchend', '.visual_img', function (event){
-  //   event.preventDefault();
-  //   count= touchEnd(size, count, len, $listMain);
-  //   $imageCount.text(count);
-  // });
-
-  // popup//////////////////////
-  var $listPopup = $('.visual_img.popup');
-  var sizePopup;
-  var lenPopup;
-  var cntPopup ;
-  var $imageCountInPopup=$('#photoviwer .figure_pagination .num').eq(0);
-
-  var popupEventInit = function() {
-    //var obj
-    $('#photoviwer .container_visual_popup').on('touchstart', '.visual_img.popup', function(event){
-      event.preventDefault();
-      startX = event.originalEvent.changedTouches[0].pageX;
-      touchStart($listPopup);
-    });
-    //var gapX;
-    $('#photoviwer .container_visual_popup').on('touchmove', '.visual_img.popup', function (event){
-      endX = event.originalEvent.changedTouches[0].pageX;
-      touchMove(cntPopup,$listPopup);
-    });
-    $('#photoviwer .container_visual_popup').on('touchend', '.visual_img.popup',function (event){
-      cntPopup = touchEnd(sizePopup, cntPopup, lenPopup, $listPopup);
-      $imageCountInPopup.text(cntPopup);
-    });
-  }
-
+  //  onEvent();
 
   var offEvent = function() {
     $('.container_visual').off('touchstart', '.visual_img');
@@ -175,23 +133,52 @@ $(function() {
     $('.container_visual').off('touchend', '.visual_img');
   }
 
-  var onEvent =function() {
-    $('.container_visual').on('touchstart', '.visual_img', function(event){
-        event.preventDefault();
-        startX = event.originalEvent.changedTouches[0].pageX;
-        touchStart($listMain);
+  var onEvent = function() {
+    $('.container_visual').on('touchstart', '.visual_img', function(event) {
+      event.preventDefault();
+      startX = event.originalEvent.changedTouches[0].pageX;
+      touchStart($listMain);
     });
-    $('.container_visual').on('touchmove', '.visual_img', function (event){
+    $('.container_visual').on('touchmove', '.visual_img', function(event) {
       event.preventDefault();
       endX = event.originalEvent.changedTouches[0].pageX;
-      touchMove(count,$listMain);
+      touchMove(count, $listMain);
     });
-    $('.container_visual').on('touchend', '.visual_img', function (event){
+    $('.container_visual').on('touchend', '.visual_img', function(event) {
       event.preventDefault();
-      count=touchEnd(size, count, len, $listMain);
+      count = touchEnd(size, count, len, $listMain);
       $imageCount.text(count);
     });
   }
+
+  onEvent();
+  // popup//////////////////////
+  var $listPopup = $('.visual_img.popup');
+  var sizePopup;
+  var lenPopup;
+  var cntPopup;
+  var $imageCountInPopup = $('#photoviwer .figure_pagination .num').eq(0);
+
+  var popupEventInit = function() {
+    //var obj
+    $('#photoviwer .container_visual_popup').on('touchstart', '.visual_img.popup', function(event) {
+      event.preventDefault();
+      startX = event.originalEvent.changedTouches[0].pageX;
+      touchStart($listPopup);
+    });
+    //var gapX;
+    $('#photoviwer .container_visual_popup').on('touchmove', '.visual_img.popup', function(event) {
+      endX = event.originalEvent.changedTouches[0].pageX;
+      touchMove(cntPopup, $listPopup);
+    });
+    $('#photoviwer .container_visual_popup').on('touchend', '.visual_img.popup', function(event) {
+      cntPopup = touchEnd(sizePopup, cntPopup, lenPopup, $listPopup);
+      $imageCountInPopup.text(cntPopup);
+    });
+  }
+
+
+
 
   var template = Handlebars.compile($('#imageTemplate').html());
 
@@ -211,7 +198,7 @@ $(function() {
           add += template(inputdata);
         }
         $('#photoviwer .visual_img').append(add);
-        sizePopup =$listPopup.find('li.item.popup').outerWidth();
+        sizePopup = $listPopup.find('li.item.popup').outerWidth();
         lenPopup = $listPopup.find('li.item.popup').length;
         popupWindowByImagePopup();
         popupEventInit();
