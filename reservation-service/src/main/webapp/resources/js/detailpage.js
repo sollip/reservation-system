@@ -1,6 +1,6 @@
 $(function() {
 
-  $(“img”).lazyload();
+  $("img").lazyload();
 
   var $listMain = $('.visual_img');
 
@@ -9,7 +9,7 @@ $(function() {
   var count = 1;
   var $imageCount = $('.figure_pagination .num').eq(0);
 
-  //7. 오시는길 클릭
+  //1. 오시는길 클릭
   $('.info_tab_lst').on('click', '._path', function() {
     event.preventDefault(); // a태그 이벤트 막기..
     $("a[class='anchor active']").removeClass('active');
@@ -18,7 +18,7 @@ $(function() {
     $('.detail_location').removeClass('hide');
   });
 
-  //8. 상세 정보 클릭
+  //2. 상세 정보 클릭
   $('.info_tab_lst').on('click', '._detail', function() {
     event.preventDefault();
     $("a[class='anchor active']").removeClass('active');
@@ -44,7 +44,7 @@ $(function() {
     $('.store_location').attr('href', 'http://map.naver.com/?lng=' + result.items[0].point.x + '&pinTitle=' + placeName + '&level=2&pinType=SITE&lat=' + result.items[0].point.y + '&enc=utf8;');
   });
 
-  //1. 이미지 다음 버튼 클릭
+  //3. 이미지 다음 버튼 클릭
   $('.nxt_inn').on('click', function() {
     count = nextPrevEvent.moveNxt(len, size, count, $listMain);
     if (count === 1) {
@@ -55,7 +55,7 @@ $(function() {
     $imageCount.text(count);
   });
 
-  //2. 이미지 이전 버튼 클릭
+  //4. 이미지 이전 버튼 클릭
   $('.prev_inn').on('click', function() {
     count = nextPrevEvent.movePre(len, size, count, $listMain);
     if (count === 1) {
@@ -66,7 +66,7 @@ $(function() {
     $imageCount.text(count);
   });
 
-  //3.펼쳐보기 버튼 클릭
+  //5.펼쳐보기 버튼 클릭
   $('.bk_more._open').on('click', function() {
     console.log("펼처보기 클릭");
     $('.store_details').removeClass('close3');
@@ -74,7 +74,7 @@ $(function() {
     $('.bk_more._close').show();
   });
 
-  //4. 접기 버튼 클릭
+  //6. 접기 버튼 클릭
   $('.bk_more._close').on('click', function() {
     console.log("접기 클릭");
     $('.store_details').addClass('close3');
@@ -88,7 +88,6 @@ $(function() {
   var gapX;
   var startX = {};
   var endX = {};
-
   var touchStart = function($list) {
     console.log("event startX: " + startX);
     obj = $list.offset();
@@ -105,7 +104,6 @@ $(function() {
       $list.attr('style', 'left:' + (obj.left + (gapX) - 90) + 'px');
     }
   };
-
   var touchEnd = function(size, cnt, len, $list) {
     if (Math.abs(gapX) > (size / 2)) { //슬라이드 넘어가기
       if (cnt === 1 && gapX > 0) {} else {
