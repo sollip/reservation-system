@@ -6,7 +6,6 @@ import java.net.URI;
 import java.security.SecureRandom;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -35,12 +34,15 @@ public class LoginController {
 
 	String clientId="cYcPk9usu3TaN83mu0va";
 	String clientSecret="h1dML3hm4M";
-	HttpSession session;
+
+	String accessToken;
+	String refreshToken;
+	String code;
+	String state;
 
 	@GetMapping
-	public String getLogin(HttpServletRequest request){
-		String responseType="code";
-		String callbackURL="http://127.0.0.1:8080/login/loginOK";
+	public String getLogin(HttpSession session){
+		String callbackURL="http://127.0.0.1:8080/login/checkState";
 		String state=new BigInteger(130,new SecureRandom()).toString(32);
 		URI uri=null;
 		try{
@@ -59,24 +61,24 @@ public class LoginController {
 		}catch(Exception e){
 			System.out.println("ERROR 01");
 		}
-		session=request.getSession();
 		session.setAttribute("state", state);
-		System.out.println("state1:"+state);
 		return "redirect:"+uri;
 	}
 
-	@GetMapping("/loginOK")
-	public String getToken(HttpServletRequest request) throws Exception{
-		String code=request.getParameter("code");
-		String state=request.getParameter("state");
-		String accessToken=null;
-		String refreshToken=null;
-
-		session=request.getSession();
-		String stateInSession=(String) session.getAttribute("state");
-		if(!stateInSession.equals(state)){
+	@GetMapping("/checkState")
+	public String checkState(HttpSession session,@RequestParam("code") String code, @RequestParam("state") String state){
+		String beforState=(String) session.getAttribute("state");
+		this.code=code;
+		this.state=state;
+		if(!beforState.equals(state)){
 			return "error";
+		}else{
+			return "redirect:/login/loginOK";
 		}
+	}
+
+	@GetMapping("/loginOK")
+	public String getToken(HttpSession session) throws Exception{
 		try {
 			URI uri = UriComponentsBuilder.newInstance()
 					.scheme("https")
@@ -90,65 +92,52 @@ public class LoginController {
 					.build()
 					.encode()
 					.toUri();
-
 			//Map<String,String> response = restTemplate.getForObject(uri, Map.class);
 			ResponseEntity<Map<String,String>> entity=restTemplate.exchange(uri, HttpMethod.GET, null, new ParameterizedTypeReference<Map<String,String>>(){});
 			int responseCode=entity.getStatusCodeValue();
-			if(responseCode==200){ //인증 성공 
 
+			if(responseCode==200){
 				Map<String,String> response = entity.getBody();
 				accessToken=response.get("access_token");
 				refreshToken=response.get("refresh_token");
-				System.out.println("accesstoken:"+accessToken);
-				//	https://openapi.naver.com/v1/nid/me
-				try{
-
-					URI uriForProfile=UriComponentsBuilder.newInstance()
-							.scheme("https")
-							.host("openapi.naver.com")
-							.path("/v1/nid/me")
-							.build().encode().toUri();
-
-					HttpHeaders header=new HttpHeaders();
-					header.set("Authorization"," Bearer "+accessToken);
-					HttpEntity<String> httpEntity=new HttpEntity<>(header);
-					ResponseEntity<Map<String,?>> profileEntity=restTemplate.exchange(uriForProfile, HttpMethod.GET, httpEntity, new ParameterizedTypeReference<Map<String,?>>(){});
-					
-					Map<String,?> userInfo1=profileEntity.getBody();
-					Map<String,?> userInfo=(Map<String, ?>) userInfo1.get("response");
-					User user=new User();
-					user.setNickname((String)userInfo.get("nickname"));
-					user.setSnsId((String)userInfo.get("id"));
-					user.setSnsProfile((String)userInfo.get("profile_image"));
-					user.setUsername((String)userInfo.get("name"));
-					user.setEmail((String)userInfo.get("email"));
-					user.setId((String)userInfo.get("id"));
-					System.out.println(user.toString());
-					if(userService.loginUser(user)!=null){
-						//성공~!
-						System.out.println("로긴 성공");
-						session=request.getSession();
-						session.setAttribute("login", "loginOK");
-						return "redirect:/myReservation";
-						
-					}else {
-						System.out.println("실패!");
-						return "error";
-					}
-					
-					
-
-				}catch(HttpClientErrorException e){
-					e.printStackTrace();
-					return "error";
-				}
-
-			}else{ //인증 실패 
-				return "error";
-			}				
+				return "redirect:/login/getProfile";
+			}
 		} catch (Exception e) {
 			System.out.println(e);
-			return "error";
 		}		
+		return "error";
+	}
+
+	@GetMapping("/getProfile")
+	public String getProfile(HttpSession session){
+
+		URI uriForProfile=UriComponentsBuilder.newInstance()
+				.scheme("https")
+				.host("openapi.naver.com")
+				.path("/v1/nid/me")
+				.build().encode().toUri();
+
+		HttpHeaders header=new HttpHeaders();
+		header.set("Authorization"," Bearer "+accessToken);
+		HttpEntity<String> httpEntity=new HttpEntity<>(header);
+		ResponseEntity<Map<String,?>> profileEntity=restTemplate.exchange(uriForProfile, HttpMethod.GET, httpEntity, new ParameterizedTypeReference<Map<String,?>>(){});
+		System.out.println(profileEntity.toString());
+		Map<String,?> userInfo1=profileEntity.getBody();
+		Map<String,?> userInfo=(Map<String, ?>) userInfo1.get("response");
+		User user=new User();
+
+		user.setNickname((String)userInfo.get("nickname"));
+		user.setSnsId((String)userInfo.get("id"));
+		user.setSnsProfile((String)userInfo.get("profile_image"));
+		user.setUsername((String)userInfo.get("name"));
+		user.setEmail((String)userInfo.get("email"));
+		user.setId((String)userInfo.get("id"));
+
+		if(userService.loginUser(user)!=null){
+			session.setAttribute("login", "loginOK");
+			return "redirect:/myReservation";
+		}else {
+			return "error";
+		}
 	}
 }
