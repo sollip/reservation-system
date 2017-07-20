@@ -73,3 +73,14 @@ from product as p, product_detail as pd, product_image as pi, display_info as di
 where p.id=pd.product_id and p.id=di.product_id and p.id=pi.product_id and p.id=1 and pi.type=1 ;
 
 select count(id) from reservation_user_comment where product_id=1;
+
+select username,nickname,sns_id,email
+from users
+where id=2;
+
+
+insert into users(username,email,tel,nickname,admin_flag,create_date)
+values("sooollip","sooollip@naver.com","01012345678","소립","0",sysdate());
+
+insert into users(id,admin_flag,sns_profile,sns_id,nickname,email,username,create_date)
+values("123",0,"0","123","멍청이","123@123","바보",sysdate());

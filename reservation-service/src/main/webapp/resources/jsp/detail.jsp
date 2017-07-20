@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 
@@ -14,10 +13,12 @@
     <link href="/resources/css/myCss.css" rel="stylesheet">
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=cYcPk9usu3TaN83mu0va&submodules=geocoder"></script>
     <script src="http://code.jquery.com/jquery.min.js"></script>
-    <script src="/resources/js/handlebars-v4.0.10.js"></script>
+    <script src="/resources/js/node_modules/handlebars/dist/handlebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
     <script type="text/javascript" src="/resources/js/commonModule.js"></script>
     <script type="text/javascript" src="/resources/js/detailpage.js"></script>
-    <script type="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="/resources/js/naverlogin.js"></script>
 </head>
 <body>
     <div id="container">
@@ -38,7 +39,7 @@
                             <a href="#" class="lnk_logo" title="네이버"> <span class="spr_bi ico_n_logo">네이버</span> </a>
                             <a href="/" class="lnk_logo" title="예약"> <span class="spr_bi ico_bk_logo">예약</span> </a>
                         </h1>
-                        <a href="#" class="btn_my"> <span title="내 예약">MY</span> </a>
+                        <a  href ="/login" class="btn_my"> <span title="내 예약">MY</span> </a>
                     </header>
                     <div class="pagination">
                         <div class="bg_pagination"></div>
@@ -314,4 +315,6 @@
         </div>
     </div>
 </body>
+
+
 </html>

@@ -1,7 +1,7 @@
 $(function() {
 
-  $("img").lazyload();
-
+  console.log($('img'));
+  $('._detail').lazyload();
   var $listMain = $('.visual_img');
 
   var size = $listMain.find('li.item').outerWidth();
@@ -83,7 +83,7 @@ $(function() {
 
   });
   ////////////////////////////////////////////////////////////////////////////////////////
-  //6.터치 이벤트
+  //7.터치 이벤트
   var obj;
   var gapX;
   var startX = {};
