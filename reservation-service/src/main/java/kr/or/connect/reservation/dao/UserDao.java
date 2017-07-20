@@ -35,7 +35,6 @@ public class UserDao {
 	}
 
 	public int updateUser(User user) {
-		
 		SqlParameterSource params=new BeanPropertySqlParameterSource(user);
 		return jdbc.update(UserSqls.UPDATE_USER, params);
 	}

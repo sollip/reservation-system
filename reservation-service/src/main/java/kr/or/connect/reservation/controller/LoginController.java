@@ -42,27 +42,31 @@ public class LoginController {
 
 	@GetMapping
 	public String getLogin(HttpSession session){
-		String callbackURL="http://127.0.0.1:8080/login/checkState";
-		String state=new BigInteger(130,new SecureRandom()).toString(32);
-		URI uri=null;
-		try{
-			uri = UriComponentsBuilder.newInstance()
-					.scheme("https")
-					.host("nid.naver.com")
-					.path("/oauth2.0/authorize")
-					.queryParam("response_type", "code")
-					.queryParam("client_id", clientId)
-					.queryParam("redirect_uri"  , callbackURL)
-					.queryParam("state", state)
-					.build()
-					.encode()
-					.toUri();
+		if(session.getAttribute("login")=="loginOK"){
+			return "redirect:/myReservation";
+		}else{
+			String callbackURL="http://127.0.0.1:8080/login/checkState";
+			String state=new BigInteger(130,new SecureRandom()).toString(32);
+			URI uri=null;
+			try{
+				uri = UriComponentsBuilder.newInstance()
+						.scheme("https")
+						.host("nid.naver.com")
+						.path("/oauth2.0/authorize")
+						.queryParam("response_type", "code")
+						.queryParam("client_id", clientId)
+						.queryParam("redirect_uri"  , callbackURL)
+						.queryParam("state", state)
+						.build()
+						.encode()
+						.toUri();
 
-		}catch(Exception e){
-			System.out.println("ERROR 01");
+			}catch(Exception e){
+				System.out.println("ERROR 01");
+			}
+			session.setAttribute("state", state);
+			return "redirect:"+uri;
 		}
-		session.setAttribute("state", state);
-		return "redirect:"+uri;
 	}
 
 	@GetMapping("/checkState")
@@ -122,8 +126,8 @@ public class LoginController {
 		HttpEntity<String> httpEntity=new HttpEntity<>(header);
 		ResponseEntity<Map<String,?>> profileEntity=restTemplate.exchange(uriForProfile, HttpMethod.GET, httpEntity, new ParameterizedTypeReference<Map<String,?>>(){});
 		System.out.println(profileEntity.toString());
-		Map<String,?> userInfo1=profileEntity.getBody();
-		Map<String,?> userInfo=(Map<String, ?>) userInfo1.get("response");
+		Map<String,?> body=profileEntity.getBody();
+		Map<String,?> userInfo=(Map<String, ?>) body.get("response");
 		User user=new User();
 
 		user.setNickname((String)userInfo.get("nickname"));
