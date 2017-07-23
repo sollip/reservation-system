@@ -1,5 +1,6 @@
 package kr.or.connect.reservation.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,9 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @EnableWebMvc
 @ComponentScan(basePackages={"kr.or.connect.reservation.controller"}) 
 public class ServletContextConfig extends WebMvcConfigurerAdapter{ //디스패쳐 서블릿의 설정
+	@Value("${spring.multipart.max-up-load-size")
+	private int maxUpLoadSize;
+	
 	@Bean
 	public ViewResolver viewResolver(){
 		InternalResourceViewResolver viewResolver=new InternalResourceViewResolver();
@@ -28,7 +32,7 @@ public class ServletContextConfig extends WebMvcConfigurerAdapter{ //디스패�
     @Bean
     public MultipartResolver multipartResolver() {
         org.springframework.web.multipart.commons.CommonsMultipartResolver multipartResolver = new org.springframework.web.multipart.commons.CommonsMultipartResolver();
-        multipartResolver.setMaxUploadSize(10485760); // 1024 * 1024 * 10
+        multipartResolver.setMaxUploadSize(maxUpLoadSize); // 1024 * 1024 * 10
         return multipartResolver;
     }
 	

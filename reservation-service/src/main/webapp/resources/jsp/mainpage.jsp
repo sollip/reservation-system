@@ -126,7 +126,7 @@
         <script src="/resources/js/node_modules/jquery/dist/jquery.js"></script>
     	<script src="/resources/js/node_modules/handlebars/dist/handlebars.js"></script>
         <script type="text/javascript" src="/resources/js/commonModule.js"></script>
-        <script type="text/javascript" src="/resources/js/mainpageModule.js"></script>
+        <script type="text/javascript" src="/resources/js/mainpage.js"></script>
     </footer>
 </body>
 

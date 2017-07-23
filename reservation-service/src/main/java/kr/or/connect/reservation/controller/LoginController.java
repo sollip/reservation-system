@@ -42,7 +42,7 @@ public class LoginController {
 
 	@GetMapping
 	public String getLogin(HttpSession session){
-		if(session.getAttribute("login")=="loginOK"){
+		if(session.getAttribute("login").equals("loginOK")){
 			return "redirect:/myReservation";
 		}else{
 			String callbackURL="http://127.0.0.1:8080/login/checkState";
