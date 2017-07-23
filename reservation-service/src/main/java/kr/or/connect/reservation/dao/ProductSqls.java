@@ -51,11 +51,14 @@ public class ProductSqls {
 	final static String COUNT_COMMENT=
 			"select count(id) from reservation_user_comment where product_id=:id";
 	
-	final static String SELECT_COMMENT_IMAGE_BY_COMMNET_ID=
+	final static String SELECT_COMMENT_IMAGES_BY_COMMNET_ID=
 			"select file_id"
 			+" from reservation_user_comment_image"
 			+" where reservation_user_comment_id=:commentId";
 
-
+	final static String SELECT_PRICE_LIST_BY_ID=
+			"select id,product_id,price,price_type,discount_rate"
+			+" from product_price"
+			+" where product_id=:id";
 
 }

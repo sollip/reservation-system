@@ -11,13 +11,13 @@
     <title>네이버 예약</title>
     <link href="/resources/css/style.css" rel="stylesheet">
     <link href="/resources/css/myCss.css" rel="stylesheet">
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=cYcPk9usu3TaN83mu0va&submodules=geocoder"></script>\
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=cYcPk9usu3TaN83mu0va&submodules=geocoder"></script>
 
     <script src="/resources/js/node_modules/jquery/dist/jquery.js"></script>
     <script src="/resources/js/node_modules/handlebars/dist/handlebars.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
     <script type="text/javascript" src="/resources/js/commonModule.js"></script>
-    <script type="text/javascript" src="/resources/js/detailpage.js"></script>
+    <script type="text/javascript" src="/resources/js/detail.js"></script>
 
 </head>
 <bod>

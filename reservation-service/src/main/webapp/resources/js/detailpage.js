@@ -231,10 +231,9 @@ $(function() {
     if($(this).find("span").data("sales")){
       var id=$('.main').data("id");
       console.log("dkdlel:"+id);
-      location.href="/reservations/"+id;
+      location.href="/products/reservation?id="+id;
     }else{
       console.log("아님");
     }
-
   });
 });

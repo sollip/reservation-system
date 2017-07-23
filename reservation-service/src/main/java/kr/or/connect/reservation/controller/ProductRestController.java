@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.or.connect.reservation.domain.Comment;
 import kr.or.connect.reservation.domain.CommentImage;
+import kr.or.connect.reservation.domain.Price;
 import kr.or.connect.reservation.domain.Product;
 import kr.or.connect.reservation.domain.ProductImage;
-import kr.or.connect.reservation.dto.ProductParam;
 import kr.or.connect.reservation.service.FileService;
 import kr.or.connect.reservation.service.ProductService;
 
@@ -105,4 +104,19 @@ public class ProductRestController {
 		ModelAndView mav=new ModelAndView("review");
 		return mav;
 	}
+	
+	@GetMapping("/reservation")
+	public ModelAndView getReservationPagesPyProductId(@RequestParam("id") int id,Model model){
+		Product product=productService.selectProductById(id);
+		model.addAttribute("product",product);
+		
+		List<Price> list=productService.selectPriceListById(id);
+		model.addAttribute("priceList",list);
+		
+		ModelAndView mav=new ModelAndView("reserve");
+		return mav;
+	}
+	
+	
+	
 }

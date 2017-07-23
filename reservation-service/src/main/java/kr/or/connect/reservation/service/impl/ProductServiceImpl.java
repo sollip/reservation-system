@@ -10,6 +10,7 @@ import kr.or.connect.reservation.dao.ProductDao;
 import kr.or.connect.reservation.domain.ProductImage;
 import kr.or.connect.reservation.domain.Comment;
 import kr.or.connect.reservation.domain.CommentImage;
+import kr.or.connect.reservation.domain.Price;
 import kr.or.connect.reservation.domain.Product;
 import kr.or.connect.reservation.dto.ProductParam;
 import kr.or.connect.reservation.service.ProductService;
@@ -67,6 +68,13 @@ public class ProductServiceImpl implements ProductService{
 	public List<CommentImage> selectCommentImagesByCommentId(int commentId) {
 		return productDao.selectCommentImagesByCommentId(commentId);
 	}
+
+	@Override
+	public List<Price> selectPriceListById(int id) {
+		return productDao.selectPriceListById(id);
+		
+	}
+	
 	
 	
 }

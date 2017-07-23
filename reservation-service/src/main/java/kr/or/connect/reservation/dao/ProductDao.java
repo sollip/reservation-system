@@ -9,16 +9,14 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import kr.or.connect.reservation.domain.Comment;
 import kr.or.connect.reservation.domain.CommentImage;
+import kr.or.connect.reservation.domain.Price;
 import kr.or.connect.reservation.domain.Product;
 import kr.or.connect.reservation.domain.ProductImage;
-import kr.or.connect.reservation.dto.ProductParam;
 
 @Repository
 public class ProductDao {
@@ -27,7 +25,7 @@ public class ProductDao {
 	private RowMapper<ProductImage> rowMapperForProductImage= BeanPropertyRowMapper.newInstance(ProductImage.class);
 	private RowMapper<Comment> rowMapperForComment= BeanPropertyRowMapper.newInstance(Comment.class);
 	private RowMapper<CommentImage> rowMapperForCommentImage= BeanPropertyRowMapper.newInstance(CommentImage.class);
-
+	private RowMapper<Price> rowMapperForPrice= BeanPropertyRowMapper.newInstance(Price.class);
 
 	public ProductDao(DataSource dataSource){
 		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
@@ -100,6 +98,11 @@ public class ProductDao {
 
 	public List<CommentImage> selectCommentImagesByCommentId(int commentId){
 		Map<String,?>params=Collections.singletonMap("commentId", commentId);
-		return jdbc.query(ProductSqls.SELECT_COMMENT_IMAGE_BY_COMMNET_ID, params,rowMapperForCommentImage);
+		return jdbc.query(ProductSqls.SELECT_COMMENT_IMAGES_BY_COMMNET_ID, params,rowMapperForCommentImage);
+	}
+	
+	public List<Price> selectPriceListById(int id){
+		Map<String,?>params=Collections.singletonMap("id", id);
+		return jdbc.query(ProductSqls.SELECT_PRICE_LIST_BY_ID, params,rowMapperForPrice);
 	}
 }

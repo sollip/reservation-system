@@ -4,9 +4,9 @@ import java.util.List;
 
 import kr.or.connect.reservation.domain.Comment;
 import kr.or.connect.reservation.domain.CommentImage;
+import kr.or.connect.reservation.domain.Price;
 import kr.or.connect.reservation.domain.Product;
 import kr.or.connect.reservation.domain.ProductImage;
-import kr.or.connect.reservation.dto.ProductParam;
 
 public interface ProductService {
 
@@ -14,11 +14,11 @@ public interface ProductService {
 	public Product selectProductById(int id);
 	public int countProductsInCategory(int categoryId);
 	
-	
 	public List<ProductImage> selectProductImageList(int id);
+	
 	public List<Comment> selectCommentListById(int id, int limit);
 	public int countCommentByProductId(int id);
-	
 	public List<CommentImage> selectCommentImagesByCommentId(int commentId);
 	
+	public List<Price> selectPriceListById(int id);
 }
