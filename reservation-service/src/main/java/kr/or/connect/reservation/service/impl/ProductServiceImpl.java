@@ -22,27 +22,27 @@ public class ProductServiceImpl implements ProductService{
 
 	@Transactional(readOnly=true)
 	@Override
-	public List<Product> selectProductList(ProductParam productParam) {
-		if(productParam.getCategoryId()==0){//전체목록
-			return productDao.selectAllProductList(productParam);
+	public List<Product> selectProductList(int categoryId,int limit,int offset) {
+		if(categoryId==0){//전체목록
+			return productDao.selectProductList(limit,offset);
 		}else{
-			return productDao.selectProductList(productParam);
+			return productDao.selectProductList(categoryId,limit,offset);
 		}
 	}
 	
 	@Override
 	@Transactional(readOnly=true)
-	public Product selectProductByProductId(int id) {
+	public Product selectProductById(int id) {
 		return productDao.selectProductById(id);
 	}
 	
 	@Override
 	@Transactional(readOnly=true)
-	public int countCategoryProduct(int categoryId) {
+	public int countProductsInCategory(int categoryId) {
 		if(categoryId==0){
-			return productDao.countAllCategoryProduct();
+			return productDao.countProductsInCategory();
 		}else{
-			return productDao.countCategoryProduct(categoryId);
+			return productDao.countProductsInCategory(categoryId);
 		}
 		
 	}
@@ -52,13 +52,11 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.selectProductImageList(id);
 	}
 
-	//limit없이 불러오기
 	@Override
 	public List<Comment> selectCommentListById(int id, int limit) {
 		System.out.println("service comment");
-		return productDao.selectCommentListByIdLimit(id,limit);
+		return productDao.selectCommentListById(id,limit);
 	}
-	
 	
 	//comment 총 갯수
 	public int countCommentByProductId(int id){
@@ -66,8 +64,8 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public List<CommentImage> selectCommentImageByCommentId(int commentId) {
-		return productDao.selectCommentImageByCommentId(commentId);
+	public List<CommentImage> selectCommentImagesByCommentId(int commentId) {
+		return productDao.selectCommentImagesByCommentId(commentId);
 	}
 	
 	

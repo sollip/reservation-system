@@ -76,7 +76,7 @@
             </div>
             <div class="section_event_tab">
                 <ul class="event_tab_lst tab_lst_min">
-                    <li class="item" data-category="1">
+                    <li class="item" data-category="0">
                         <a class="anchor active"> <span>전체</span> </a>
                     </li>
                     <script id="categoryTemplate" type="text/x-handlebars-template">
@@ -94,7 +94,7 @@
                       <script id="productTemplate" type="text/x-handlebars-template">
                         {{#productList}}
                         <li class="item" data-id="{{id}}">
-                              <a href="/products/detail/{{id}}" class="item_book">
+                              <a href="/products/detail?id={{id}}" class="item_book">
                                 <div class="item_preview"> <img alt="{{name}}" class="img_thumb" src="/files/{{fileId}}">                                    <span class="img_border"></span> </div>
                                   <div class="event_txt">
                                   <h4 class="event_txt_tit"> <span>{{name}}</span> <small class="sm">{{placeName}}</small> </h4>
@@ -123,8 +123,8 @@
             <p class="dsc_footer">네이버(주)는 통신판매의 당사자가 아니며, 상품의정보, 거래조건, 이용 및 환불 등과 관련한 의무와 책임은 각 회원에게 있습니다.</p>
             <span class="copyright">© NAVER Corp.</span>
         </div>
-        <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script src="/resources/js/handlebars-v4.0.10.js"></script>
+        <script src="/resources/js/node_modules/jquery/dist/jquery.js"></script>
+    	<script src="/resources/js/node_modules/handlebars/dist/handlebars.js"></script>
         <script type="text/javascript" src="/resources/js/commonModule.js"></script>
         <script type="text/javascript" src="/resources/js/mainpageModule.js"></script>
     </footer>

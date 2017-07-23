@@ -91,8 +91,8 @@ function loadProductList() {
 /////////
 function loadCategoryCount(categoryId){
   $.ajax({
-    url: "/products/"+categoryId,
-    type: "GET",//
+    url: "/products/productCount?categoryId="+categoryId,
+    type: "GET",
 		dataType: "JSON",
     success: function getProductList(data) {
       $('.event_lst_txt .pink').text(data+'개');
@@ -141,11 +141,9 @@ function setProduct(limit,offset,reset){
   data.categoryId = $('.anchor.active').closest('li.item').data("category") - 1;
   loadCategoryCount(data.categoryId);
   $.ajax({
-    url: "/products",
-    type: "POST",//
+    url: "/products?limit="+limit+"&offset="+offset+"$categoryId="+categoryId,
+    type: "GET",
     dataType: "JSON",
-    contentType:"application/JSON",
-    data:JSON.stringify(data),
     success: function getProductList(data) {
       var s=0;
       if(reset){

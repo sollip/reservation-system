@@ -18,7 +18,7 @@ public class DetailRestController {
 	
 	@GetMapping("/{id}")
 	public ModelAndView loadDatailPage(@PathVariable int id, Model model){
-		model.addAttribute("product", productService.selectProductByProductId(id));
+		model.addAttribute("product", productService.selectProductById(id));
 		ModelAndView mav=new ModelAndView("detail");
 		return mav;
 	}

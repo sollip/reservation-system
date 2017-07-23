@@ -11,16 +11,16 @@
     <title>네이버 예약</title>
     <link href="/resources/css/style.css" rel="stylesheet">
     <link href="/resources/css/myCss.css" rel="stylesheet">
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=cYcPk9usu3TaN83mu0va&submodules=geocoder"></script>
-    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=cYcPk9usu3TaN83mu0va&submodules=geocoder"></script>\
+
+    <script src="/resources/js/node_modules/jquery/dist/jquery.js"></script>
     <script src="/resources/js/node_modules/handlebars/dist/handlebars.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.js"></script>
     <script type="text/javascript" src="/resources/js/commonModule.js"></script>
     <script type="text/javascript" src="/resources/js/detailpage.js"></script>
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
-<script type="text/javascript" src="/resources/js/naverlogin.js"></script>
+
 </head>
-<body>
+<bod>
     <div id="container">
         <div class="header fade">
             <header class="header_tit">
@@ -31,7 +31,7 @@
                 <a href="#" class="btn_my"> <span title="내 예약">MY</span> </a>
             </header>
         </div>
-        <div class="ct main">
+        <div class="ct main" data-id="${product.id}">
             <div>
                 <div class="section_visual">
                     <header>
@@ -128,19 +128,23 @@
                 <div class="section_btn">
                    <button type="button" class="bk_btn">
                      <i class="fn fn-nbooking-calender2"></i>
-                     <span>
                        <c:choose>
                          <c:when test="${product.salesFlag eq 1}">
-                           매진
+                          <span data-sales="false">
+                             매진
+                          </span>
                          </c:when>
                          <c:when test="${salesEnd}">
-                           판매 종료
+                           <span data-sales="false">
+                             판매 종료
+                           </span>
                          </c:when>
                          <c:otherwise>
-                           예매하기
+                           <span data-sales="true">
+                             예매하기
+                           </span>
                          </c:otherwise>
                        </c:choose>
-                     </span>
                    </button>
                </div>
                 <div class="section_review_list">
@@ -190,7 +194,7 @@
                         </div>
                         <p class="guide"> <i class="spr_book2 ico_bell"></i> <span>네이버 예약을 통해 실제 방문한 이용자가 남긴 평가입니다.</span> </p>
                     </div>
-                    <a class="btn_review_more" href="/products/commentList/${product.id}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
+                    <a class="btn_review_more" href="/products/commentList?id=${product.id}"> <span>예매자 한줄평 더보기</span> <i class="fn fn-forward1"></i> </a>
                 </div>
                 <div class="section_info_tab">
                     <!-- [D] tab 선택 시 anchor에 active 추가 -->

@@ -10,11 +10,15 @@ import kr.or.connect.reservation.dto.ProductParam;
 
 public interface ProductService {
 
-	public List<Product> selectProductList(ProductParam productParam);
-	public Product selectProductByProductId(int id);
-	public int countCategoryProduct(int categoryId);
+	public List<Product> selectProductList(int categoryId, int limit, int offset); 
+	public Product selectProductById(int id);
+	public int countProductsInCategory(int categoryId);
+	
+	
 	public List<ProductImage> selectProductImageList(int id);
 	public List<Comment> selectCommentListById(int id, int limit);
 	public int countCommentByProductId(int id);
-	public List<CommentImage> selectCommentImageByCommentId(int commentId);
+	
+	public List<CommentImage> selectCommentImagesByCommentId(int commentId);
+	
 }

@@ -77,11 +77,11 @@ public class LoginController {
 		if(!beforState.equals(state)){
 			return "error";
 		}else{
-			return "redirect:/login/loginOK";
+			return "redirect:/login/getToken";
 		}
 	}
 
-	@GetMapping("/loginOK")
+	@GetMapping("/getToken")
 	public String getToken(HttpSession session) throws Exception{
 		try {
 			URI uri = UriComponentsBuilder.newInstance()

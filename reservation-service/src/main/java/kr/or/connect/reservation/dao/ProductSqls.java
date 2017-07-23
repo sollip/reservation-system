@@ -1,13 +1,13 @@
 package kr.or.connect.reservation.dao;
 
 public class ProductSqls {
-	final static String SELECT_ALL_PRODUCT = 
+	final static String SELECT_PRODUCT_LIST = 
 			"select DISTINCT p.id, name, description, content, event ,place_name, place_street, place_lot, homepage, email, tel, sales_flag, sales_end, file_id"
 			+" from product as p, product_detail as pd,product_image as pi, display_info as di"
 			+" where p.id=pd.product_id and p.id=di.product_id and p.id=pi.product_id and pi.type=1 limit :offset, :limit";
 
 
-	final static String SELECT_PRODUCT_LIST = 
+	final static String SELECT_PRODUCT_LIST_IN_CATEGORY = 
 			"select DISTINCT p.id, name, description, content, event, place_name, place_street, place_lot, homepage, email, tel, sales_flag, sales_end, file_id"
 			+" from product as p, product_detail as pd, product_image as pi, display_info as di"
 			+" where p.id=pd.product_id and p.id=di.product_id and p.id=pi.product_id and p.category_id=:categoryId and pi.type=1 limit :offset, :limit";

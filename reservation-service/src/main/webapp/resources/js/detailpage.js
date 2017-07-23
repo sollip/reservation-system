@@ -39,7 +39,7 @@ $(function() {
     var myaddr = result.items[0].point.x + "," + result.items[0].point.y;
     var placeName = $('.store_addr_bold').data('id');
     console.log("placeName:" + placeName);
-    $('.store_map.img_thumb').attr('src', "https://openapi.naver.com/v1/map/staticmap.bin?clientId=cYcPk9usu3TaN83mu0va&url=http://localhost:8080/&crs=EPSG:4326&center=" + myaddr + "&level=10&w=340&h=150&baselayer=default&markers=" + myaddr);
+    $('.store_map.img_thumb').attr('src', "https://openapi.naver.com/v1/map/staticmap.bin?clientId=cYcPk9usu3TaN83mu0va&url=http://127.0.0.1:8080/&crs=EPSG:4326&center=" + myaddr + "&level=10&w=340&h=150&baselayer=default&markers=" + myaddr);
     //네이버 지도로 이동설정...
     $('.store_location').attr('href', 'http://map.naver.com/?lng=' + result.items[0].point.x + '&pinTitle=' + placeName + '&level=2&pinType=SITE&lat=' + result.items[0].point.y + '&enc=utf8;');
   });
@@ -153,6 +153,7 @@ $(function() {
   }
 
   onEvent();
+
   // popup//////////////////////
   var $listPopup = $('.visual_img.popup');
   var sizePopup;
@@ -177,9 +178,6 @@ $(function() {
       $imageCountInPopup.text(cntPopup);
     });
   }
-
-
-
 
   var template = Handlebars.compile($('#imageTemplate').html());
 
@@ -224,6 +222,19 @@ $(function() {
     onEvent();
     $('#photoviwer .item.popup').remove();
     $('#photoviwer').hide();
+
+  });
+
+  //예약하기 버튼 클릭
+  $('.bk_btn').on('click',function(){
+    console.log("클릭됨");
+    if($(this).find("span").data("sales")){
+      var id=$('.main').data("id");
+      console.log("dkdlel:"+id);
+      location.href="/reservations/"+id;
+    }else{
+      console.log("아님");
+    }
 
   });
 });

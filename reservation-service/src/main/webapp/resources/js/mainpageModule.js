@@ -91,7 +91,7 @@ $(function() {
 
       getCategoryCount: function(categoryId) {
         $.ajax({
-          url: "/products/" + categoryId,
+          url: "/products/productCount?categoryId="+categoryId,
           type: "GET", //
           dataType: "JSON",
           success: function getProductList(data) {
@@ -102,16 +102,12 @@ $(function() {
 
       getProduct: function(limit, offset, reset) {
         var inputData = {};
-        inputData.limit = limit;
-        inputData.offset = offset;
-        inputData.categoryId = $('.anchor.active').closest('li.item').data("category") - 1;
-        getDataModule.getCategoryCount(inputData.categoryId);
+        var categoryId = $('.anchor.active').closest('li.item').data("category");
+        getDataModule.getCategoryCount(categoryId);
         $.ajax({
-          url: "/products",
-          type: "POST",
+          url: "/products?limit="+limit+"&offset="+offset+"&categoryId="+categoryId,
+          type: "GET",
           dataType: "JSON",
-          contentType: "application/JSON",
-          data: JSON.stringify(inputData),
           success: function appendProductList(data) {
             var s = 0;
             if (reset) {

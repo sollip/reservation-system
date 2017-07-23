@@ -8,9 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,20 +32,24 @@ public class ProductRestController {
 	@Autowired
 	FileService fileService;
 	
-	@PostMapping
-	public List<Product> getProductList(@RequestBody ProductParam productParam){
-		return productService.selectProductList(productParam);
+	@GetMapping
+	public List<Product> getProductList(@RequestParam("categoryId") Integer categoryId, @RequestParam("limit") Integer limit,
+			@RequestParam("offset") Integer offset){
+		System.out.println("프로덕트 리스트 "+categoryId+":"+limit+":"+offset);
+		List<Product> list=productService.selectProductList(categoryId,limit,offset);
+		System.out.println(list.toString());
+		return list;
 	}
 	
-	@GetMapping("/{categoryId}")
-	public int getCategoryCount(@PathVariable int categoryId){
-		return productService.countCategoryProduct(categoryId);
+	@GetMapping("/productCount")
+	public int getProductCount(@RequestParam("categoryId") int categoryId){
+		return productService.countProductsInCategory(categoryId);
 	}
 	
-	@GetMapping("/detail/{id}")
-	public ModelAndView getProductDetailByProductId(@PathVariable int id, Model model){
+	@GetMapping("/detail")///detail?id={id}
+	public ModelAndView getDetailByProductId(@RequestParam("id") int id, Model model){
 		//product 정보
-		Product product=productService.selectProductByProductId(id);
+		Product product=productService.selectProductById(id);
 		model.addAttribute("product", product);
 		
 		//product image정보
@@ -90,22 +92,17 @@ public class ProductRestController {
 	@GetMapping("/commentImages")
 	public List<CommentImage> getCommentImageByCommentId(@RequestParam("commentId") Integer commentId){
 		System.out.println("commentId : "+commentId);
-		List<CommentImage> list= productService.selectCommentImageByCommentId(commentId);
+		List<CommentImage> list= productService.selectCommentImagesByCommentId(commentId);
 		for(CommentImage c:list){
 			System.out.println(":::"+c.getFileId());
 		}
 		return list;
 	}
 	
-	@GetMapping("/commentList/{id}")
-	public ModelAndView getCommentListPage(@PathVariable int id){
+	@GetMapping("/commentList")
+	public ModelAndView getCommentListPageByProductId(@RequestParam("id") int id){
 		System.out.println("....reivew...page...");
 		ModelAndView mav=new ModelAndView("review");
 		return mav;
 	}
-	
-		
-	
-	
-	
 }
