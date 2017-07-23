@@ -29,12 +29,14 @@ $(function() {
     }
 
     return {
-      clearTimer: function(interval, timeout) {
-        clearInterval(interval);
-        clearTimeout(timeout);
-      },
-
-      startTimeout: function(time) {
+      //튜터링 받아서 setTimer로 수정
+      setTimer: function(interval, timeout, time) {
+        if(interval!==null){
+            clearInterval(interval);
+        }
+        if(timeout!==null){
+            clearTimeout(timeout);
+        }
         common.autoSlideTimeout = setTimeout(animateModule.startInterval, time);
       },
 
@@ -152,18 +154,16 @@ $(function() {
 
   //3. 프로모션 이전 버튼 이벤트
   $('.spr_event_pre').on('click', function movePrev() {
-    animateModule.clearTimer(common.autoSlideInterval, common.autoSlideTimeout);
+    animateModule.setTimer(common.autoSlideInterval, common.autoSlideTimeout,4000);
     var count=nextPrevEvent.movePre(animateModule.len,animateModule.size,animateModule.getCnt(),animateModule.$list);
     animateModule.setCnt(count);
-    animateModule.startTimeout(4000);
   });
 
   //4. 프로모션 다음 버튼 이벤트
   $('.spr_event_nxt').on('click', function moveNext() {
-    animateModule.clearTimer(common.autoSlideInterval, common.autoSlideTimeout);
+    animateModule.setTimer(common.autoSlideInterval, common.autoSlideTimeout,4000);
     var count=nextPrevEvent.moveNxt(animateModule.len,animateModule.size,animateModule.getCnt(),animateModule.$list);
     animateModule.setCnt(count);
-    animateModule.startTimeout(4000);
   });
 
   //5. 카테고리 선택 버튼 이벤트
