@@ -1,11 +1,12 @@
 $(function() {
   class Ticket extends eg.Component {
-    constructor(count, price, discountRate, age, $qty) {
+    constructor(count, price, discountRate, age,type, $qty) {
       super();
       this.discountRate = discountRate;
       this.count = count;
       this.price = parseInt(price);
       this.age = age;
+      this.type=type;
       this.$qty = $qty;
       this.$count = $qty.find('.count_control_input');
       this.$plusBtn = $qty.find('.ico_plus3');
@@ -13,8 +14,8 @@ $(function() {
       this.$individualPrice = $qty.find('.individual_price');
       this.$totalMoney = $qty.find('.total_price');
       this.totalMoney = 0;
-
       this.$totalCount=$('.inline_txt.selected span').eq(1);
+      this.$input;
     }
 
     init() {
@@ -22,6 +23,7 @@ $(function() {
       this.on("plus", this.plus);
       this.on("changeTicket", this.changeTicket);
       this.price = this.price * (1 - this.discountRate);
+      this.$input=$('input[data-type='+this.type+']');
     }
 
     plus() {
@@ -37,6 +39,9 @@ $(function() {
 
       //총 개수 증가
       this.$totalCount.text(++Ticket.prototype.totalCount);
+
+      //
+    this.$input.val(this.count);
     }
 
     minus() {
@@ -53,6 +58,8 @@ $(function() {
         this.$totalMoney.text(parseInt(total));
         //총 개수 감소
         this.$totalCount.text(--Ticket.prototype.totalCount);
+        this.$input.val(this.count);
+
       }
     }
   }
@@ -87,9 +94,9 @@ $(function() {
     }
     checkUserInfo(){
       console.log("checkUserInfo");
-      this.username=$('input[name="name"]').val();
-      this.tel=$('input[name="tel"]').val();
-      this.email=$('input[name="email"]').val();
+      this.username=$('input[name="reservationName"]').val();
+      this.tel=$('input[name="reservationTel"]').val();
+      this.email=$('input[name="reservationEmail"]').val();
       if(this.username===""){
         //alert("예매자 이름을 입력하세요.");
         return false;
@@ -141,7 +148,7 @@ $(function() {
   var $price = $('.price');
 
   for (var i = 0; i < length; i++) {
-    ticket[i] = new Ticket(0, $price.eq(i).text().replace(',', ''), $price.data("discount"), $age.eq(i).text(), $qty.eq(i));
+    ticket[i] = new Ticket(0, $price.eq(i).text().replace(',', ''), $price.data("discount"), $age.eq(i).text(),$age.eq(i).data("type"), $qty.eq(i));
     ticket[i].init();
     console.dir(ticket[i]);
   }
@@ -177,12 +184,24 @@ $(function() {
   });
 
   $('.bk_btn_wrap').on('click',function(event){
+
+    var queryString = $("form.form_horizontal").serializeArray();
     var data={};
-    data.id=
+    for(var i=0;i<queryString.length;i++){
+      var name=queryString[i].name;
+      data[name]=queryString[i].value;
+    }
     if($(this).hasClass('disable')){
+    }else{
       $.ajax({
-        url:/reservations/
-      })
+        url: "/reservations",
+        type:"post",
+        data: JSON.stringify(data),
+        contentType: " application/json",
+        success:function(){
+          alert("예약완료!");
+        }
+      });
     }
   });
 

@@ -6,14 +6,14 @@ public class Reservation {
 	private int id;
 	private int productId;
 	private int userId;
-	private int generalTicketCount;
-	private int youthTicketCount;
-	private int childTicketCount;
+	private String generalTicketCount;
+	private String youthTicketCount;
+	private String childTicketCount;
 	private String reservationName;
 	private String reservationTel;
 	private	String reservationEmail;
 	private Timestamp reservationDate;
-	private int reservationType;
+	private String reservationType;
 	private Timestamp createDate;
 	public Reservation() {
 		super();
@@ -37,22 +37,22 @@ public class Reservation {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getGeneralTicketCount() {
+	public String getGeneralTicketCount() {
 		return generalTicketCount;
 	}
-	public void setGeneralTicketCount(int generalTicketCount) {
+	public void setGeneralTicketCount(String generalTicketCount) {
 		this.generalTicketCount = generalTicketCount;
 	}
-	public int getYouthTicketCount() {
+	public String getYouthTicketCount() {
 		return youthTicketCount;
 	}
-	public void setYouthTicketCount(int youthTicketCount) {
+	public void setYouthTicketCount(String youthTicketCount) {
 		this.youthTicketCount = youthTicketCount;
 	}
-	public int getChildTicketCount() {
+	public String getChildTicketCount() {
 		return childTicketCount;
 	}
-	public void setChildTicketCount(int childTicketCount) {
+	public void setChildTicketCount(String childTicketCount) {
 		this.childTicketCount = childTicketCount;
 	}
 	public String getReservationName() {
@@ -79,10 +79,10 @@ public class Reservation {
 	public void setReservationDate(Timestamp reservationDate) {
 		this.reservationDate = reservationDate;
 	}
-	public int getReservationType() {
+	public String getReservationType() {
 		return reservationType;
 	}
-	public void setReservationType(int reservationType) {
+	public void setReservationType(String reservationType) {
 		this.reservationType = reservationType;
 	}
 	public Timestamp getCreateDate() {
@@ -91,6 +91,16 @@ public class Reservation {
 	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
 	}
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", productId=" + productId + ", userId=" + userId + ", generalTicketCount="
+				+ generalTicketCount + ", youthTicketCount=" + youthTicketCount + ", childTicketCount="
+				+ childTicketCount + ", reservationName=" + reservationName + ", reservationTel=" + reservationTel
+				+ ", reservationEmail=" + reservationEmail + ", reservationDate=" + reservationDate
+				+ ", reservationType=" + reservationType + ", createDate=" + createDate + "]";
+	}
+	
+	
 	
 	
 }

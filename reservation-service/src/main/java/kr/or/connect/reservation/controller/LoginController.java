@@ -148,10 +148,11 @@ public class LoginController {
 		user.setSnsProfile((String)userInfo.get("profile_image"));
 		user.setUsername((String)userInfo.get("name"));
 		user.setEmail((String)userInfo.get("email"));
-		System.out.println("d아이디 : "+user.getId());
-		if(userService.loginUser(user)!=null){
+		
+		User loginUser=userService.loginUser(user);
+		if(loginUser!=null){
 			session.setAttribute("login", "loginOK");
-			session.setAttribute("userId",user.getSnsId());
+			session.setAttribute("user",loginUser);
 			String nextURL=(String) session.getAttribute("nextURL");
 			
 			return "redirect:"+nextURL;

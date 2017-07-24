@@ -105,13 +105,13 @@
                             <div class="agreement_nessasary help_txt"> <span class="spr_book ico_nessasary"></span> <span>필수입력</span> </div>
                             <form class="form_horizontal">
                                 <div class="inline_form"> <label class="label" for="name"> <span class="spr_book ico_nessasary">필수</span> <span>예매자</span> </label>
-                                    <div class="inline_control"> <input type="text" name="name" id="name" class="text" value="${name }" maxlength="17"> </div>
+                                    <div class="inline_control"> <input type="text" name="reservationName" id="name" class="text" value="${name }" maxlength="17"> </div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="tel"> <span class="spr_book ico_nessasary">필수</span> <span>연락처</span> </label>
-                                    <div class="inline_control"> <input type="tel" name="tel" value="${tel}" id="tel" class="tel" placeholder="휴대폰 입력 시 예매내역 문자발송"></div>
+                                    <div class="inline_control"> <input type="tel" name="reservationTel" value="${tel}" id="tel" class="tel" placeholder="휴대폰 입력 시 예매내역 문자발송"></div>
                                 </div>
                                 <div class="inline_form"> <label class="label" for="email">  <span>이메일</span> </label>
-                                    <div class="inline_control"> <input type="email" name="email" id="email" class="email" value="${email }" maxlength="50"> </div>
+                                    <div class="inline_control"> <input type="email" name="reservationEmail" id="email" class="email" value="${email }" maxlength="50"> </div>
                                 </div>
                                 <div class="inline_form last"> <label class="label" for="message">예매내용</label>
                                     <div class="inline_control">
@@ -120,6 +120,21 @@
                                         </p>
                                     </div>
                                 </div>
+                                <c:forEach var="price" items="${priceList }">
+                                  <c:choose>
+          		                   		<c:when test="${price.priceType eq 1 }">
+          		                   			<c:set var="inputName" value="generalTicketCount"/>
+          		                   		</c:when>
+          		                   		<c:when test="${price.priceType eq 2 }">
+          		                   			<c:set var="inputName" value="youthTicketCount"/>
+          		                   		</c:when>
+          		                   		<c:when test="${price.priceType eq 3 }">
+          		                   			<c:set var="inputName" value="childTicketCount"/>
+          		                   		</c:when>
+          	                   		</c:choose>
+                                  <input type="hidden" value="0" name="${inputName}" data-type="${price.priceType}">
+                                </c:forEach>
+                                <input type="hidden" value="${product.id}" name="productId" >
                             </form>
 
                         </div>
