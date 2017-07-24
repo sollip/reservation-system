@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User loginUser(User user) {
-		if(userDao.selectUser(user)!=null){
+		if(userDao.selectUser(user.getSnsId())!=null){
 			if(0==userDao.updateUser(user)){
 				//throw new MyException();	
 				System.out.println("업데이트 실패");
@@ -29,5 +29,11 @@ public class UserServiceImpl implements UserService{
 			System.out.println("삽입 성공");
 		}
 		return user;
+	}
+
+	@Override
+	public User selectUser(String snsId) {
+		// TODO Auto-generated method stub
+		return userDao.selectUser(snsId);
 	}
 }

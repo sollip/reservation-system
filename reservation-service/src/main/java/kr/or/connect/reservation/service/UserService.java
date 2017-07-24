@@ -11,5 +11,5 @@ public interface UserService {
 	
 	
 	public User loginUser(User user);
-	
+	public User selectUser(String snsId);
 }

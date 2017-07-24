@@ -1,5 +1,8 @@
 package kr.or.connect.reservation.dao;
 
+import java.util.Collections;
+import java.util.Map;
+
 import javax.sql.DataSource;
 
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,6 +30,15 @@ public class UserDao {
 
 	public User selectUser(User user){
 		SqlParameterSource params=new BeanPropertySqlParameterSource(user);
+		try{
+			return jdbc.queryForObject(UserSqls.SELECT_USER, params, rowMapper);
+		}catch(EmptyResultDataAccessException e){
+			return null;
+		}
+	}
+	
+	public User selectUser(String snsId){
+		Map<String,?>params=Collections.singletonMap("snsId", snsId);
 		try{
 			return jdbc.queryForObject(UserSqls.SELECT_USER, params, rowMapper);
 		}catch(EmptyResultDataAccessException e){

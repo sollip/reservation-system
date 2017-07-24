@@ -15,6 +15,8 @@ public interface ProductService {
 	public int countProductsInCategory(int categoryId);
 	
 	public List<ProductImage> selectProductImageList(int id);
+	public ProductImage selectProductMainImage(int id, int type);
+	
 	
 	public List<Comment> selectCommentListById(int id, int limit);
 	public int countCommentByProductId(int id);

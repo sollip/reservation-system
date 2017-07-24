@@ -74,8 +74,7 @@ $(function(){
       } else { //돌아오기
         $list.attr('style', 'left:' + (-1) * (size * (count - 1)) + 'px');
       }
-      gapX = 0;
-
+    ㅡ
       $imageCount.text(count);
     };
   }

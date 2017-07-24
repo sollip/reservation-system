@@ -42,7 +42,8 @@ public class LoginController {
 
 	@GetMapping
 	public String getLogin(HttpSession session){
-		if(session.getAttribute("login").equals("loginOK")){
+		
+		if(session.getAttribute("login")!=null && session.getAttribute("login").equals("loginOK")){
 			return "redirect:/myReservation";
 		}else{
 			String callbackURL="http://127.0.0.1:8080/login/checkState";
@@ -130,15 +131,16 @@ public class LoginController {
 		Map<String,?> userInfo=(Map<String, ?>) body.get("response");
 		User user=new User();
 
+		user.setId(Integer.parseInt((String) userInfo.get("id")));
 		user.setNickname((String)userInfo.get("nickname"));
 		user.setSnsId((String)userInfo.get("id"));
 		user.setSnsProfile((String)userInfo.get("profile_image"));
 		user.setUsername((String)userInfo.get("name"));
 		user.setEmail((String)userInfo.get("email"));
-		user.setId((String)userInfo.get("id"));
-
+		System.out.println("d아이디 : "+user.getId());
 		if(userService.loginUser(user)!=null){
 			session.setAttribute("login", "loginOK");
+			session.setAttribute("userId",user.getSnsId());
 			return "redirect:/myReservation";
 		}else {
 			return "error";

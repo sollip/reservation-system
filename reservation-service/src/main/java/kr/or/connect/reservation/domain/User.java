@@ -8,10 +8,8 @@ public class User {
 	private String snsId;
 	private String snsType;
 	private String snsProfile;
-	private String id;
+	private int id;
 	private int adminFlag;
-	
-	
 	
 	public int getAdminFlag() {
 		return adminFlag;
@@ -29,14 +27,17 @@ public class User {
 	}
 	
 	
-	public String getId() {
+
+	public int getId() {
 		return id;
 	}
 
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
+
+
 	public String getUsername() {
 		return username;
 	}

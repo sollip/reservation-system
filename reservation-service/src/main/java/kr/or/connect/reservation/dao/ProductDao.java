@@ -81,7 +81,6 @@ public class ProductDao {
 		params.put("id", id);
 		params.put("limit", limit);
 		return jdbc.query(ProductSqls.SELECT_COMMENT_LIST_BY_ID_LIMIT, params,rowMapperForComment);
-
 	}
 
 //	//select 상품별 comment list
@@ -105,4 +104,5 @@ public class ProductDao {
 		Map<String,?>params=Collections.singletonMap("id", id);
 		return jdbc.query(ProductSqls.SELECT_PRICE_LIST_BY_ID, params,rowMapperForPrice);
 	}
+	
 }

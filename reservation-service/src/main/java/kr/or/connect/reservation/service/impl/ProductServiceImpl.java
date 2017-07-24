@@ -74,6 +74,12 @@ public class ProductServiceImpl implements ProductService{
 		return productDao.selectPriceListById(id);
 		
 	}
+
+	@Override
+	public ProductImage selectProductMainImage(int id, int type) {
+		
+		return null;
+	}
 	
 	
 	

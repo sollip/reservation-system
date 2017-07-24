@@ -26,7 +26,7 @@ public class ProductSqls {
 	final static String SELECT_PRODUCT_IMAGE_LIST=
 			"select file_id,type"
 			+" from product_image as pi"
-			+" where pi.product_id=:id ";
+			+" where pi.product_id=:id order by type";
 	
 	final static String SELECT_COMMENT_LIST_BY_ID_ALL=
 			"select rr.id, product_id,username,score,comment,DATE_FORMAT(rr.create_date, '%Y-%m-%d') create_date,file_id,image_count"
