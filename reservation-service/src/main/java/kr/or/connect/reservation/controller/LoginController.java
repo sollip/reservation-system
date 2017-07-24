@@ -6,6 +6,7 @@ import java.net.URI;
 import java.security.SecureRandom;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -40,12 +42,21 @@ public class LoginController {
 	String code;
 	String state;
 
-	@GetMapping
-	public String getLogin(HttpSession session){
+	@GetMapping("/{url}")
+	public String getLogin(HttpSession session, HttpServletRequest request){
+		String requestURI=request.getServletPath();
+		String nextRequest=requestURI.substring(6,requestURI.length());
+		String queryString=request.getQueryString();
+		String url=nextRequest+"?"+queryString;
+
 		
 		if(session.getAttribute("login")!=null && session.getAttribute("login").equals("loginOK")){
-			return "redirect:/myReservation";
+			return "redirect:"+url;
 		}else{
+			session.setAttribute("nextURL", url);
+			
+			//session.setAttribute("nextUrl", url);
+			//session.setAttribute("productId", id);
 			String callbackURL="http://127.0.0.1:8080/login/checkState";
 			String state=new BigInteger(130,new SecureRandom()).toString(32);
 			URI uri=null;
@@ -141,7 +152,9 @@ public class LoginController {
 		if(userService.loginUser(user)!=null){
 			session.setAttribute("login", "loginOK");
 			session.setAttribute("userId",user.getSnsId());
-			return "redirect:/myReservation";
+			String nextURL=(String) session.getAttribute("nextURL");
+			
+			return "redirect:"+nextURL;
 		}else {
 			return "error";
 		}

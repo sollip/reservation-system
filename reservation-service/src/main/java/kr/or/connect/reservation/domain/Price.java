@@ -10,8 +10,6 @@ public class Price {
 	private double discountRate;
 	private Timestamp createDate;
 	
-	
-	
 	public Price() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -176,4 +176,14 @@ $(function() {
     check.trigger("checkAll");
   });
 
+  $('.bk_btn_wrap').on('click',function(event){
+    var data={};
+    data.id=
+    if($(this).hasClass('disable')){
+      $.ajax({
+        url:/reservations/
+      })
+    }
+  });
+
 });
